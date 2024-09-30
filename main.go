@@ -3,6 +3,7 @@ package main
 import (
 	"inventory_service/config"
 	"inventory_service/controllers"
+	"inventory_service/events"
 	"inventory_service/repository"
 	"inventory_service/services"
 	"inventory_service/utils"
@@ -24,6 +25,8 @@ func main() {
 	inventoryRepository := repository.NewInventoryRepository(db)
 	inventoryService := services.NewInventoryService(inventoryRepository)
 	inventoryController := controllers.NewInventoryController(inventoryService, logger)
+
+	go events.ConsumeProductCreatedEvents(inventoryService)
 
 	r := mux.NewRouter()
 
