@@ -1,14 +1,10 @@
 package models
 
-type Warehouse struct {
-	ID       uint   `gorm:"primaryKey"`
-	Name     string `json:"name"`
-	Location string `json:"location"`
-}
+import "gorm.io/gorm"
 
-type WarehouseStock struct {
-	ID          uint `gorm:"primaryKey"`
-	ProductID   uint ` json:"product_id"`
-	WarehouseID uint `json:"warehouse_id"`
-	Stock       int  `json:"stock"`
+// Warehouse mewakili struktur tabel warehouse di database
+type Warehouse struct {
+	gorm.Model
+	Name     string `json:"name" validate:"required,min=3,max=30"  `    // Nama warehouse dengan validasi
+	Location string `json:"location" validate:"required,min=3,max=255"` // Lokasi warehouse dengan validasi
 }

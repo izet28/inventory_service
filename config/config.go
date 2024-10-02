@@ -43,7 +43,7 @@ func InitDB() *gorm.DB {
 	sqlDB.SetConnMaxLifetime(30 * time.Minute)
 
 	// Automigrate untuk tabel inventory
-	db.AutoMigrate(&models.Inventory{})
+	db.AutoMigrate(&models.Inventory{}, &models.Warehouse{})
 
 	return db
 }
